@@ -42,10 +42,10 @@ $(LIBGDBSTUB): $(LIB_OBJ)
 	$(AR) -rcs $@ $^
 
 $(TEST_OBJ): tests/test.c
-	riscv32-unknown-elf-gcc -march=rv32g -Wl,-Ttext=0x0 -nostdlib -g -o $@ $<
+	riscv64-unknown-elf-gcc -march=rv32im -mabi=ilp32 -Wl,-Ttext=0x0 -nostdlib -g -o $@ $<
 
 $(TEST_BIN): $(TEST_OBJ)
-	riscv32-unknown-elf-objcopy -O binary $< $@
+	riscv64-unknown-elf-objcopy -O binary $< $@
 
 build-emu: $(LIBGDBSTUB)
 	$(MAKE) -C emu
